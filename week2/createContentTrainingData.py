@@ -7,10 +7,17 @@ import random
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-def transform_name(product_name):
-    # IMPLEMENT
-    return product_name
+stemmer = SnowballStemmer("english")
 
+def transform_name(product_name):
+    # Transform names to lowercase
+    ret = product_name.lower()
+    # Remove non-alphanumeric characters other than space, hyphen, or period.
+    ret = ''.join(c for c in ret if c.isalpha() or c.isnumeric() or c=='-' or c==' ' or c =='.')
+    # Apply Snowball stemmer
+    # ret = ' '.join(map(stemmer.stem, ret.split(' ')))
+    return ret
+    
 # Directory for product data
 directory = r'/workspace/datasets/product_data/products/'
 
